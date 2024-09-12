@@ -14,13 +14,13 @@ import { a } from '@react-spring/three'
 
 const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
   const islandRef = useRef()
-
+  const easing = useRef(0.03);
   const { gl, viewport } = useThree();
   const { nodes, materials } = useGLTF(islandScene)
 
   const lastX = useRef(0);
   const rotationSpeed = useRef(0);
-  const dampingFactor = 0.95
+  const dampingFactor = 0.9
 
 
   const handlePointerDown = (event) => {
@@ -55,7 +55,7 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
       const delta = (clientX - lastX.current) / viewport.width;
 
       // Update the island's rotation based on the mouse/touch movement
-      islandRef.current.rotation.y += delta * 0.01 * Math.PI;
+      islandRef.current.rotation.y += delta * 0.01 * Math.PI ;
 
       // Update the reference for the last clientX position
       lastX.current = clientX;
@@ -69,13 +69,13 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
     if (event.key === "ArrowLeft") {
       if (!isRotating) setIsRotating(true);
 
-      islandRef.current.rotation.y += 0.005 * Math.PI;
-      rotationSpeed.current = 0.0125;
+      islandRef.current.rotation.y += 0.1 * Math.PI * easing.current;
+      rotationSpeed.current = 0.017;
     } else if (event.key === "ArrowRight") {
       if (!isRotating) setIsRotating(true);
 
-      islandRef.current.rotation.y -= 0.005 * Math.PI;
-      rotationSpeed.current = -0.0125;
+      islandRef.current.rotation.y -= 0.1 * Math.PI * easing.current;
+      rotationSpeed.current = -0.017;
     }
   };
 
