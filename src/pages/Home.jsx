@@ -15,7 +15,7 @@ const Home = () => {
   audioRef.current.loop = true
   const [isRotating, setIsRotating] = useState(false)
   const [currentStage, setCurrentStage] = useState(1)
-  const [isPlaying, setIsPlaying] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
     if(isPlaying) {
@@ -90,7 +90,7 @@ const Home = () => {
         </Suspense>
       </Canvas>
       <div className='absolute bottom-2 left-2'>
-        <img src={isPlaying ? soundon : soundoff} alt="sound" className='w-10 h-10 cursor-pointer object-contain' onClick={() => setIsPlaying(!isPlaying)}/>
+        <img src={!isPlaying ? soundoff : soundon} alt="sound" className='w-10 h-10 cursor-pointer object-contain' onClick={() => setIsPlaying(!isPlaying)}/>
       </div>
     </section>
   )
